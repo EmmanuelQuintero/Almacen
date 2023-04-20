@@ -1,3 +1,10 @@
+<?php
+session_start();
+$us = $_SESSION["usuario"];
+if ($us == "") {
+header("Location: index.html");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,29 +21,22 @@ ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="a
 </head>
 
 <body>
-    <?php
-    session_start();
-    $us = $_SESSION["usuario"];
-    if ($us == "") {
-        header("Location: admin-ord.php");
-    }
-    ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="admin.php">Almacen ABC</a>
+            <a class="navbar-brand" href="index.html">Almacen ABC</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="admin.php">Usuarios</a>
+                        <a class="nav-link active" aria-current="page" href="usuario.php">Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="admin-prod.php">Productos</a>
+                        <a class="nav-link" href="user-prod.php">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="admin-ord.php">Ordenes</a>
+                        <a class="nav-link" href="user-ord.php">Ordenes</a>
                     </li>
                 </ul>
                 <span class="navbar-text">
@@ -48,16 +48,15 @@ ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="a
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Cliente</th>
-                <th scope="col">Email</th>
-                <th scope="col">Total</th>
-                <th scope="col">Fecha</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">email</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Password</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            $servurl = "http://localhost:3003/ordenes";
+            $servurl = "http://192.168.100.2:3001/usuarios";
             $curl = curl_init($servurl);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             $response = curl_exec($curl);
@@ -70,18 +69,16 @@ ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="a
             $long = count($resp);
             for ($i = 0; $i < $long; $i++) {
                 $dec = $resp[$i];
-                $id = $dec->id;
-                $nombreCliente = $dec->nombreCliente;
-                $emailCliente = $dec->emailCliente;
-                $totalcuenta = $dec->totalcuenta;
-                $fecha = $dec->fecha;
+                $nombre = $dec->nombre;
+                $email = $dec->email;
+                $usuario = $dec->usuario;
+                $password = $dec->password;
             ?>
                 <tr>
-                    <td><?php echo $id; ?></td>
-                    <td><?php echo $nombreCliente; ?></td>
-                    <td><?php echo $emailCliente; ?></td>
-                    <td><?php echo $totalcuenta; ?></td>
-                    <td><?php echo $fecha; ?></td>
+                    <td><?php echo $nombre; ?></td>
+                    <td><?php echo $email; ?></td>
+                    <td><?php echo $usuario; ?></td>
+                    <td><?php echo $password; ?></td>
                 </tr>
             <?php
             }

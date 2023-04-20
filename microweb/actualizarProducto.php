@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 echo $json;
 
-                $url = "http://localhost:3002/productos/$id";
+                $url = "http://192.168.100.2:3002/productos/$id";
                 $ch = curl_init($url);
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $json);

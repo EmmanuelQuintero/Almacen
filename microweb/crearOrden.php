@@ -23,7 +23,7 @@ $data = array("usuario" => $us, "items" => $items);
 $json = json_encode($data);
 
 
-$url = "http://localhost:3003/ordenes";
+$url = "http://192.168.100.2:3003/ordenes";
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 curl_setopt($ch, CURLOPT_POSTFIELDS, $json);

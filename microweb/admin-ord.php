@@ -1,3 +1,10 @@
+<?php
+session_start();
+$us = $_SESSION["usuario"];
+if ($us == "") {
+header("Location: admin-ord.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,13 +21,6 @@ ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="a
 </head>
 
 <body>
-    <?php
-    session_start();
-    $us = $_SESSION["usuario"];
-    if ($us == "") {
-        header("Location: admin-ord.php");
-    }
-    ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="admin.php">Almacen ABC</a>
@@ -30,13 +30,13 @@ ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="a
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="usuario.php">Usuarios</a>
+                        <a class="nav-link" aria-current="page" href="admin.php">Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="user-prod.php">Productos</a>
+                        <a class="nav-link" href="admin-prod.php">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="user-ord.php">Ordenes</a>
+                        <a class="nav-link active" href="admin-ord.php">Ordenes</a>
                     </li>
                 </ul>
                 <span class="navbar-text">
@@ -57,7 +57,7 @@ ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="a
         </thead>
         <tbody>
             <?php
-            $servurl = "http://localhost:3003/ordenes/usuarios/$us";
+            $servurl = "http://192.168.100.2:3003/ordenes";
             $curl = curl_init($servurl);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             $response = curl_exec($curl);
@@ -67,7 +67,6 @@ ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="a
             }
             curl_close($curl);
             $resp = json_decode($response);
-            echo "<script>console.log('$servurl');</script>";
             $long = count($resp);
             for ($i = 0; $i < $long; $i++) {
                 $dec = $resp[$i];

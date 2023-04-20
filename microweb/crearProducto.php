@@ -1,16 +1,14 @@
 <?php
 $nombre = $_POST["nombre"];
-$email = $_POST["email"];
-$usuario = $_POST["usuario"];
-$pass = $_POST["password"];
+$precio = $_POST["precio"];
+$inventario = $_POST["inventario"];
 // URL de la solicitud POST
-$url = 'http://localhost:3001/usuarios';
+$url = 'http://192.168.100.2:3002/productos';
 // Datos que se enviarán en la solicitud POST
 $data = array(
     'nombre' => $nombre,
-    'email' => $email,
-    'usuario' => $usuario,
-    'password' => $pass,
+    'precio' => $precio,
+    'inventario' => $inventario,
 );
 $json_data = json_encode($data);
 // Inicializar cURL
@@ -29,5 +27,6 @@ if ($response === false) {
 }
 // Cerrar la conexión cURL
 curl_close($ch);
-header("Location:admin.php");
+echo '<script>alert("Productos creado exitosamente")</script>';
+header("Location: admin-prod.php");
 ?>
